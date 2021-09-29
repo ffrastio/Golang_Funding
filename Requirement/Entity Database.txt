@@ -1,0 +1,35 @@
+Database untuk BWA Startup :
+
+-	User:
+	- ID : Integer
+	- Name : Varchar
+	- Occupation : Varchar
+	- Email : Varchar
+	- Password_hash : Varchar
+	- Avatar_photo : Varchar
+	- Role : Varchar
+	- Token : Varchar
+	- Created_at : DateTime
+	- Updated_at : DateTime
+
+-	Campaigns:
+	- ID : Integer
+	- Title Funding : Varchar
+	- User_id : Integer 
+	- Goal_Amount : Integer
+	- Current_Amount : Integer
+	- Description : Text
+	- Short_Description : Varchar
+	- Perks : Text
+	- Slug : Varchar
+	- Created_at : DateTime
+	- Updated_at : DateTime
+
+-	Campaign_Galleries:
+	- Gallery_id : Integer
+	- Photo	: 
+
+-	Transactions
+	- User_id
+	- Campaign_id
+	- Code
