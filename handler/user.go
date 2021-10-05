@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"bwastartup/helper"
 	"bwastartup/user"
 	"net/http"
 
@@ -21,12 +22,26 @@ func (h *userHandler) RegisterUser(c *gin.Context) {
 
 	err := c.ShouldBindJSON(&input)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, nil)
+
+		errors := helper.FormatValidationError(err)
+
+		errorMassage := gin.H{"errors": errors}
+
+		response := helper.APIRespone("Register Account Failed", http.StatusBadRequest, "error", errorMassage)
+		c.JSON(http.StatusBadRequest, response)
+		return
 	}
-	user, err := h.userService.RegisterUser(input)
+	newUser, err := h.userService.RegisterUser(input)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, nil)
+		response := helper.APIRespone("Register Account Failed", http.StatusBadRequest, "error", nil)
+		c.JSON(http.StatusBadRequest, response)
+		return
 	}
-	c.JSON(http.StatusOK, user)
+
+	formatter := user.FormatUser(newUser, "token Token Roken")
+
+	response := helper.APIRespone("Account han been created", http.StatusOK, "success", formatter)
+
+	c.JSON(http.StatusOK, response)
 }
